@@ -212,6 +212,7 @@ describe("calc", () => {
 
   describe("evaluation failures", () => {
     it("keeps the expression and reports an error", () => {
+      spyOn(console, "error");
       editor.setText("missingName + 1");
       editor.selectAll();
 
@@ -223,9 +224,11 @@ describe("calc", () => {
         .filter((notification) => notification.getType() === "error");
       expect(errors.length).toBe(1);
       expect(errors[0].getDetail()).toContain("missingName is not defined");
+      expect(console.error).toHaveBeenCalled();
     });
 
     it("stops expressions that exceed the configured timeout", () => {
+      spyOn(console, "error");
       atom.config.set("calc.evaluationTimeout", 25);
       editor.setText("while (true) {}");
       editor.selectAll();
@@ -238,6 +241,7 @@ describe("calc", () => {
         .filter((notification) => notification.getType() === "error");
       expect(errors.length).toBe(1);
       expect(errors[0].getDetail()).toContain("timed out");
+      expect(console.error).toHaveBeenCalled();
     });
   });
 

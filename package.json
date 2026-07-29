@@ -23,6 +23,12 @@
     "{% if keys['calc:evaluate'] %}You can evaluate selected JavaScript expressions with {{ 'calc:evaluate' | keystroke }}{% else %}You can evaluate selected JavaScript expressions and replace them with their results.{% endif %}"
   ],
   "main": "./lib/calc.js",
+  "scripts": {
+    "test": "lumine --test spec",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
   "activationCommands": {
     "atom-text-editor": [
       "calc:replace",
@@ -63,5 +69,13 @@
       "maximum": 10000,
       "default": 1000
     }
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-n": "^18.2.2",
+    "globals": "^17.8.0",
+    "prettier": "^3.9.6"
   }
 }
