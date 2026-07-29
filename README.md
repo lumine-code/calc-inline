@@ -1,47 +1,38 @@
-# Calc
+# calc
 
-Calculation short-cuts for Atom.
+Evaluate JavaScript expressions and number selections.
+
+Work through calculations directly in a text editor without switching to a separate calculator.
+
+## Features
+
+- **Expression evaluation**: append results to selected JavaScript expressions.
+- **In-place replacement**: replace selected expressions with their results.
+- **Batch calculation**: evaluate every selected expression in a single undo step.
+- **Extended variables**: reuse earlier results with `_`, `_1`, `_2`, and later names.
+- **Math shortcuts**: call functions such as `pow` and `max` without a `Math.` prefix.
+- **Selection numbering**: replace each selection with its zero-based or configured index.
+
+## Installation
+
+To install `calc` search for _calc_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/calc`.
 
 ## Commands
 
-### `evaluate`
+Commands available in `atom-text-editor`:
 
-Evaluates the expression selected and appends it.
+- `calc:evaluate`: append each selected expression's result,
+- `calc:replace`: replace each selected expression with its result,
+- `calc:count`: replace each selection with its index.
 
-*Example*:
-`5 + 5 + 5` => `5 + 5 + 5 = 15`
+## Usage
 
-### `replace`
+With no selection, evaluation can process the document one line at a time. Blank lines and lines beginning with `//` are skipped.
 
-Evaluates the expression selected and replaces it.
+When extended variables are enabled, `i` is the current selection index, `_` is the previous result, and `_1`, `_2`, and later names retain results from the current run. `Math.pwd(length)` and its `Math.password` alias generate a random printable string; the default length is 20.
 
-*Example*:
-`5 + 5 + 5` => `15`
+Math shortcuts are enabled by default, so `pow(2, 8)` and `Math.pow(2, 8)` both evaluate to `256`.
 
-### `count`
+## Contributing
 
-For every selection, replace the text with the currently selected index.
-
-## Functions
-
-Some functions not normally available to Javascript are available inside
-expressions:
-
-### `Math.pwd`
-
-Generates a random password of a given length.
-If not given a length, defaults to 20.
-
-## Extended Variables
-
-Extended Variables provide meaning to some "magic" variable names:
-
-- `_` is replaced with the result of the last expression.
-- `_n` (e.g. `_1`, `_2`, etc..) is replaced with the result of the `n`th
-  expression.
-- `i` is replaced with the number of the current selection.
-
-## Notes
-
-By default, all expressions are surrounded with `with (Math)`, which causes
-all `Math` functions to be usable without needing a `Math.` prefix.
+Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub. Any feedback is welcome!

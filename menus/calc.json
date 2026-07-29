@@ -1,0 +1,17 @@
+{
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "Calc",
+          "submenu": [
+            { "label": "Evaluate", "command": "calc:evaluate" },
+            { "label": "Replace", "command": "calc:replace" },
+            { "label": "Count", "command": "calc:count" }
+          ]
+        }
+      ]
+    }
+  ]
+}
