@@ -22,12 +22,46 @@
   "backgroundTips": [
     "{% if keys['calc:evaluate'] %}You can evaluate selected JavaScript expressions with {{ 'calc:evaluate' | keystroke }}{% else %}You can evaluate selected JavaScript expressions and replace them with their results.{% endif %}"
   ],
-  "main": "./lib/calc",
+  "main": "./lib/calc.js",
   "activationCommands": {
     "atom-text-editor": [
       "calc:replace",
       "calc:evaluate",
       "calc:count"
     ]
+  },
+  "configSchema": {
+    "extendedVariables": {
+      "title": "Extended variables",
+      "description": "Expose the selection index, previous result, and numbered results to expressions.",
+      "type": "boolean",
+      "default": true
+    },
+    "withMath": {
+      "title": "Unqualified Math functions",
+      "description": "Make Math functions available without a Math prefix.",
+      "type": "boolean",
+      "default": true
+    },
+    "evaluateAllOnEmptySelection": {
+      "title": "Evaluate all lines without a selection",
+      "description": "Treat every line as an expression when the editor has one empty selection.",
+      "type": "boolean",
+      "default": true
+    },
+    "countStartIndex": {
+      "title": "Count start index",
+      "description": "Set the first selection index used by counting and the i variable.",
+      "type": "integer",
+      "default": 0
+    },
+    "evaluationTimeout": {
+      "title": "Evaluation timeout",
+      "description": "Stop an expression after this many milliseconds to keep the editor responsive.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10000,
+      "default": 1000
+    }
   }
 }
