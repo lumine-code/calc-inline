@@ -1,4 +1,4 @@
-describe("calc", () => {
+describe("calc-inline", () => {
   let editor, editorElement, mainModule;
 
   beforeEach(async () => {
@@ -6,22 +6,22 @@ describe("calc", () => {
     editor = await atom.workspace.open();
     editorElement = atom.views.getView(editor);
 
-    atom.config.set("calc.extendedVariables", true);
-    atom.config.set("calc.withMath", true);
-    atom.config.set("calc.evaluateAllOnEmptySelection", true);
-    atom.config.set("calc.countStartIndex", 0);
-    atom.config.set("calc.evaluationTimeout", 1000);
+    atom.config.set("calc-inline.extendedVariables", true);
+    atom.config.set("calc-inline.withMath", true);
+    atom.config.set("calc-inline.evaluateAllOnEmptySelection", true);
+    atom.config.set("calc-inline.countStartIndex", 0);
+    atom.config.set("calc-inline.evaluationTimeout", 1000);
     atom.notifications.clear();
 
-    const activation = atom.packages.activatePackage("calc");
-    atom.commands.dispatch(editorElement, "calc:evaluate");
+    const activation = atom.packages.activatePackage("calc-inline");
+    atom.commands.dispatch(editorElement, "calc-inline:evaluate");
     mainModule = (await activation).mainModule;
     editor.setText("");
     atom.notifications.clear();
   });
 
   afterEach(async () => {
-    await atom.packages.deactivatePackage("calc");
+    await atom.packages.deactivatePackage("calc-inline");
   });
 
   function dispatch(command) {
@@ -38,17 +38,21 @@ describe("calc", () => {
       .findCommands({ target: editorElement })
       .map((command) => command.name);
 
-    for (const name of ["calc:evaluate", "calc:replace", "calc:count"]) {
+    for (const name of [
+      "calc-inline:evaluate",
+      "calc-inline:replace",
+      "calc-inline:count",
+    ]) {
       expect(commands).toContain(name);
     }
   });
 
-  describe("calc:evaluate", () => {
+  describe("calc-inline:evaluate", () => {
     it("appends the result to a selected expression", () => {
       editor.setText("1 + 2\n2 + 3");
       selectLine();
 
-      dispatch("calc:evaluate");
+      dispatch("calc-inline:evaluate");
 
       expect(editor.getText()).toBe("1 + 2 = 3\n2 + 3");
     });
@@ -59,7 +63,7 @@ describe("calc", () => {
       editor.addCursorAtBufferPosition([1, 0]);
       editor.selectToEndOfLine();
 
-      dispatch("calc:evaluate");
+      dispatch("calc-inline:evaluate");
 
       expect(editor.getText()).toBe("1 + 2 = 3\n2 + 3 = 5");
       editor.undo();
@@ -72,13 +76,13 @@ describe("calc", () => {
       editor.addCursorAtBufferPosition([1, 0]);
       editor.selectToEndOfLine();
 
-      dispatch("calc:evaluate");
+      dispatch("calc-inline:evaluate");
 
       expect(editor.getText()).toBe("1 - 1 = 0\n1 > 2 = false");
     });
   });
 
-  describe("calc:replace", () => {
+  describe("calc-inline:replace", () => {
     it("replaces selected expressions and preserves surrounding text", () => {
       editor.setText("before 5 + 5 after");
       editor.setSelectedBufferRange([
@@ -86,7 +90,7 @@ describe("calc", () => {
         [0, 12],
       ]);
 
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
 
       expect(editor.getText()).toBe("before 10 after");
     });
@@ -95,7 +99,7 @@ describe("calc", () => {
       editor.setText('"hello".toUpperCase()');
       editor.selectAll();
 
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
 
       expect(editor.getText()).toBe("HELLO");
     });
@@ -104,7 +108,7 @@ describe("calc", () => {
       for (const expression of ["null", "undefined"]) {
         editor.setText(expression);
         editor.selectAll();
-        dispatch("calc:replace");
+        dispatch("calc-inline:replace");
         expect(editor.getText()).toBe(expression);
       }
     });
@@ -115,29 +119,29 @@ describe("calc", () => {
       editor.setText("1 + 2\n// explain\n\n2 + 3");
       editor.setCursorBufferPosition([3, 2]);
 
-      dispatch("calc:evaluate");
+      dispatch("calc-inline:evaluate");
 
       expect(editor.getText()).toBe("1 + 2 = 3\n// explain\n\n2 + 3 = 5");
       expect(editor.getCursorBufferPosition()).toEqual([3, 2]);
     });
 
     it("does nothing when whole-document evaluation is disabled", () => {
-      atom.config.set("calc.evaluateAllOnEmptySelection", false);
+      atom.config.set("calc-inline.evaluateAllOnEmptySelection", false);
       editor.setText("1 + 2\n2 + 3");
       editor.setCursorBufferPosition([0, 0]);
 
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
 
       expect(editor.getText()).toBe("1 + 2\n2 + 3");
     });
   });
 
-  describe("calc:count", () => {
+  describe("calc-inline:count", () => {
     it("numbers empty selections from the configured start index", () => {
-      atom.config.set("calc.countStartIndex", 5);
+      atom.config.set("calc-inline.countStartIndex", 5);
       editor.setText("\n\n");
 
-      dispatch("calc:count");
+      dispatch("calc-inline:count");
 
       expect(editor.getText()).toBe("5\n6\n");
     });
@@ -145,10 +149,10 @@ describe("calc", () => {
 
   describe("extended variables", () => {
     it("provides the selection index and numbered results", () => {
-      atom.config.set("calc.countStartIndex", 5);
+      atom.config.set("calc-inline.countStartIndex", 5);
       editor.setText("i\n_1 + 2\n_2 + i");
 
-      dispatch("calc:evaluate");
+      dispatch("calc-inline:evaluate");
 
       expect(editor.getText()).toBe("i = 5\n_1 + 2 = 7\n_2 + i = 14");
     });
@@ -156,11 +160,11 @@ describe("calc", () => {
     it("keeps the previous result across commands", () => {
       editor.setText("6 * 7");
       editor.selectAll();
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
 
       editor.setText("_ + 1");
       editor.selectAll();
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
 
       expect(editor.getText()).toBe("43");
     });
@@ -168,12 +172,12 @@ describe("calc", () => {
     it("removes magic variables when the feature is disabled", () => {
       editor.setText("6 * 7");
       editor.selectAll();
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
 
-      atom.config.set("calc.extendedVariables", false);
+      atom.config.set("calc-inline.extendedVariables", false);
       editor.setText("typeof _");
       editor.selectAll();
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
 
       expect(editor.getText()).toBe("undefined");
     });
@@ -183,29 +187,29 @@ describe("calc", () => {
     it("provides unqualified Math functions when enabled", () => {
       editor.setText("pow(2, 8)");
       editor.selectAll();
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
       expect(editor.getText()).toBe("256");
     });
 
     it("does not provide unqualified Math functions when disabled", () => {
-      atom.config.set("calc.withMath", false);
+      atom.config.set("calc-inline.withMath", false);
       editor.setText("typeof pow");
       editor.selectAll();
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
       expect(editor.getText()).toBe("undefined");
     });
 
     it("supports comments in expressions", () => {
       editor.setText("1 + 2 // Math");
       editor.selectAll();
-      dispatch("calc:evaluate");
+      dispatch("calc-inline:evaluate");
       expect(editor.getText()).toBe("1 + 2 // Math = 3");
     });
 
     it("generates printable strings with Math.pwd", () => {
       editor.setText("Math.pwd(32).length");
       editor.selectAll();
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
       expect(editor.getText()).toBe("32");
     });
   });
@@ -216,7 +220,7 @@ describe("calc", () => {
       editor.setText("missingName + 1");
       editor.selectAll();
 
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
 
       expect(editor.getText()).toBe("missingName + 1");
       const errors = atom.notifications
@@ -229,11 +233,11 @@ describe("calc", () => {
 
     it("stops expressions that exceed the configured timeout", () => {
       spyOn(console, "error");
-      atom.config.set("calc.evaluationTimeout", 25);
+      atom.config.set("calc-inline.evaluationTimeout", 25);
       editor.setText("while (true) {}");
       editor.selectAll();
 
-      dispatch("calc:replace");
+      dispatch("calc-inline:replace");
 
       expect(editor.getText()).toBe("while (true) {}");
       const errors = atom.notifications

@@ -12,7 +12,7 @@ module.exports = [
   n.configs["flat/recommended-script"],
   {
     settings: {
-      // Calc runs inside the editor's bundled Node 24 runtime.
+      // Calc Inline runs inside the editor's bundled Node 24 runtime.
       n: { version: ">=24.0.0" },
     },
     languageOptions: {

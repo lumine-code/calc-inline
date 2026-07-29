@@ -1,4 +1,4 @@
-# calc
+# calc-inline
 
 Evaluate JavaScript expressions and number selections.
 
@@ -15,15 +15,15 @@ Work through calculations directly in a text editor without switching to a separ
 
 ## Installation
 
-To install `calc` search for _calc_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/calc`.
+To install `calc-inline` search for _calc-inline_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/calc-inline`.
 
 ## Commands
 
 Commands available in `atom-text-editor`:
 
-- `calc:evaluate`: append each selected expression's result,
-- `calc:replace`: replace each selected expression with its result,
-- `calc:count`: replace each selection with its index.
+- `calc-inline:evaluate`: append each selected expression's result,
+- `calc-inline:replace`: replace each selected expression with its result,
+- `calc-inline:count`: replace each selection with its index.
 
 ## Usage
 

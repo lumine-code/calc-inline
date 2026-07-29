@@ -1,0 +1,17 @@
+{
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "Calc Inline",
+          "submenu": [
+            { "label": "Evaluate", "command": "calc-inline:evaluate" },
+            { "label": "Replace", "command": "calc-inline:replace" },
+            { "label": "Count", "command": "calc-inline:count" }
+          ]
+        }
+      ]
+    }
+  ]
+}

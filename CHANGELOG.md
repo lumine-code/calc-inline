@@ -27,8 +27,8 @@
 
 ## 0.3.4
 
-- Forced `calc:evaluate` and `calc:replace` to skip empty selections
-- Fixed name mismatch bug relating to `calc:count` command
+- Forced `calc-inline:evaluate` and `calc-inline:replace` to skip empty selections
+- Fixed name mismatch bug relating to `calc-inline:count` command
 - Removed default keymap
 
 ## 0.3.3
