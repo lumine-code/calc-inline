@@ -17,7 +17,7 @@
   "version": "0.4.0",
   "license": "GPL-3.0-only",
   "engines": {
-    "lumine": ">=1.100.0 <2.0.0"
+    "lumine": "^1.0.0"
   },
   "backgroundTips": [
     "{% if keys['calc-inline:evaluate'] %}You can evaluate selected JavaScript expressions with {{ 'calc-inline:evaluate' | keystroke }}{% else %}You can evaluate selected JavaScript expressions and replace them with their results.{% endif %}"
