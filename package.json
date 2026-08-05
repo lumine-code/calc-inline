@@ -23,6 +23,11 @@
     "{% if keys['calc-inline:evaluate'] %}You can evaluate selected JavaScript expressions with {{ 'calc-inline:evaluate' | keystroke }}{% else %}You can evaluate selected JavaScript expressions and replace them with their results.{% endif %}"
   ],
   "main": "./lib/calc-inline.js",
+  "files": [
+    "lib",
+    "menus",
+    "spec"
+  ],
   "scripts": {
     "test": "lumine --test spec",
     "lint": "eslint . --max-warnings 0",
