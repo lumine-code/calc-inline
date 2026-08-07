@@ -19,7 +19,7 @@ To install `calc-inline` search for _calc-inline_ in the Install pane of the Lum
 
 ## Commands
 
-Commands available in `atom-text-editor`:
+Commands available in `atom-workspace`:
 
 - `calc-inline:evaluate`: append each selected expression's result,
 - `calc-inline:replace`: replace each selected expression with its result,
