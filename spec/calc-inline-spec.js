@@ -2,30 +2,30 @@ describe("calc-inline", () => {
   let editor, editorElement, mainModule;
 
   beforeEach(async () => {
-    jasmine.attachToDOM(atom.views.getView(atom.workspace));
-    editor = await atom.workspace.open();
-    editorElement = atom.views.getView(editor);
+    jasmine.attachToDOM(lumine.views.getView(lumine.workspace));
+    editor = await lumine.workspace.open();
+    editorElement = lumine.views.getView(editor);
 
-    atom.config.set("calc-inline.extendedVariables", true);
-    atom.config.set("calc-inline.withMath", true);
-    atom.config.set("calc-inline.evaluateAllOnEmptySelection", true);
-    atom.config.set("calc-inline.countStartIndex", 0);
-    atom.config.set("calc-inline.evaluationTimeout", 1000);
-    atom.notifications.clear();
+    lumine.config.set("calc-inline.extendedVariables", true);
+    lumine.config.set("calc-inline.withMath", true);
+    lumine.config.set("calc-inline.evaluateAllOnEmptySelection", true);
+    lumine.config.set("calc-inline.countStartIndex", 0);
+    lumine.config.set("calc-inline.evaluationTimeout", 1000);
+    lumine.notifications.clear();
 
-    const activation = atom.packages.activatePackage("calc-inline");
-    atom.commands.dispatch(editorElement, "calc-inline:evaluate");
+    const activation = lumine.packages.activatePackage("calc-inline");
+    lumine.commands.dispatch(editorElement, "calc-inline:evaluate");
     mainModule = (await activation).mainModule;
     editor.setText("");
-    atom.notifications.clear();
+    lumine.notifications.clear();
   });
 
   afterEach(async () => {
-    await atom.packages.deactivatePackage("calc-inline");
+    await lumine.packages.deactivatePackage("calc-inline");
   });
 
   function dispatch(command) {
-    atom.commands.dispatch(editorElement, command);
+    lumine.commands.dispatch(editorElement, command);
   }
 
   function selectLine(row = 0) {
@@ -34,7 +34,7 @@ describe("calc-inline", () => {
   }
 
   it("registers its editor commands", () => {
-    const commands = atom.commands
+    const commands = lumine.commands
       .findCommands({ target: editorElement })
       .map((command) => command.name);
 
@@ -126,7 +126,7 @@ describe("calc-inline", () => {
     });
 
     it("does nothing when whole-document evaluation is disabled", () => {
-      atom.config.set("calc-inline.evaluateAllOnEmptySelection", false);
+      lumine.config.set("calc-inline.evaluateAllOnEmptySelection", false);
       editor.setText("1 + 2\n2 + 3");
       editor.setCursorBufferPosition([0, 0]);
 
@@ -138,7 +138,7 @@ describe("calc-inline", () => {
 
   describe("calc-inline:count", () => {
     it("numbers empty selections from the configured start index", () => {
-      atom.config.set("calc-inline.countStartIndex", 5);
+      lumine.config.set("calc-inline.countStartIndex", 5);
       editor.setText("\n\n");
 
       dispatch("calc-inline:count");
@@ -149,7 +149,7 @@ describe("calc-inline", () => {
 
   describe("extended variables", () => {
     it("provides the selection index and numbered results", () => {
-      atom.config.set("calc-inline.countStartIndex", 5);
+      lumine.config.set("calc-inline.countStartIndex", 5);
       editor.setText("i\n_1 + 2\n_2 + i");
 
       dispatch("calc-inline:evaluate");
@@ -174,7 +174,7 @@ describe("calc-inline", () => {
       editor.selectAll();
       dispatch("calc-inline:replace");
 
-      atom.config.set("calc-inline.extendedVariables", false);
+      lumine.config.set("calc-inline.extendedVariables", false);
       editor.setText("typeof _");
       editor.selectAll();
       dispatch("calc-inline:replace");
@@ -192,7 +192,7 @@ describe("calc-inline", () => {
     });
 
     it("does not provide unqualified Math functions when disabled", () => {
-      atom.config.set("calc-inline.withMath", false);
+      lumine.config.set("calc-inline.withMath", false);
       editor.setText("typeof pow");
       editor.selectAll();
       dispatch("calc-inline:replace");
@@ -223,7 +223,7 @@ describe("calc-inline", () => {
       dispatch("calc-inline:replace");
 
       expect(editor.getText()).toBe("missingName + 1");
-      const errors = atom.notifications
+      const errors = lumine.notifications
         .getNotifications()
         .filter((notification) => notification.getType() === "error");
       expect(errors.length).toBe(1);
@@ -233,14 +233,14 @@ describe("calc-inline", () => {
 
     it("stops expressions that exceed the configured timeout", () => {
       spyOn(console, "error");
-      atom.config.set("calc-inline.evaluationTimeout", 25);
+      lumine.config.set("calc-inline.evaluationTimeout", 25);
       editor.setText("while (true) {}");
       editor.selectAll();
 
       dispatch("calc-inline:replace");
 
       expect(editor.getText()).toBe("while (true) {}");
-      const errors = atom.notifications
+      const errors = lumine.notifications
         .getNotifications()
         .filter((notification) => notification.getType() === "error");
       expect(errors.length).toBe(1);
