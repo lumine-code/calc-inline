@@ -15,7 +15,7 @@ Work through calculations directly in a text editor without switching to a separ
 
 ## Installation
 
-To install `calc-inline` search for _calc-inline_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/calc-inline`.
+To install `calc-inline` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/calc-inline`.
 
 ## Commands
 
