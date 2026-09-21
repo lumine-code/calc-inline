@@ -34,13 +34,6 @@
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
-  "activationCommands": {
-    "lumine-text-editor": [
-      "calc-inline:replace",
-      "calc-inline:evaluate",
-      "calc-inline:count"
-    ]
-  },
   "configSchema": {
     "extendedVariables": {
       "title": "Extended variables",
