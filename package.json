@@ -19,9 +19,6 @@
   "engines": {
     "lumine": "^1.0.0"
   },
-  "backgroundTips": [
-    "{% if keys['calc-inline:evaluate'] %}You can evaluate selected JavaScript expressions with {{ 'calc-inline:evaluate' | keystroke }}{% else %}You can evaluate selected JavaScript expressions and replace them with their results.{% endif %}"
-  ],
   "main": "./lib/calc-inline.js",
   "files": [
     "lib",
@@ -66,6 +63,13 @@
       "minimum": 1,
       "maximum": 10000,
       "default": 1000
+    }
+  },
+  "providedServices": {
+    "background-tips.provider": {
+      "versions": {
+        "1.0.0": "provideBackgroundTips"
+      }
     }
   },
   "devDependencies": {
