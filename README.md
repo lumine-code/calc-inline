@@ -1,10 +1,6 @@
 # calc-inline
 
-Evaluate JavaScript expressions and number selections.
-
-Fork of [Lixquid/atom-calc](https://github.com/Lixquid/atom-calc).
-
-Work through calculations directly in a text editor without switching to a separate calculator.
+Evaluate JavaScript expressions and number selections. Work through calculations directly in a text editor without switching to a separate calculator.
 
 ## Features
 

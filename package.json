@@ -15,11 +15,11 @@
     "numbering"
   ],
   "version": "1.0.0",
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "engines": {
     "lumine": "^1.0.0"
   },
-  "main": "./lib/calc-inline.js",
+  "main": "./lib/main.js",
   "files": [
     "lib",
     "menus",
@@ -27,6 +27,7 @@
   ],
   "scripts": {
     "test": "lumine --test spec",
+    "test:unit": "node --test test/*.test.js",
     "lint": "eslint . --max-warnings 0",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
