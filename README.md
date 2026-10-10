@@ -2,6 +2,8 @@
 
 Evaluate JavaScript expressions and number selections.
 
+Fork of [atom-calc](https://github.com/Lixquid/atom-calc). The current calculator uses a replacement implementation.
+
 Work through calculations directly in a text editor without switching to a separate calculator.
 
 ## Features
