@@ -30,7 +30,9 @@
           "submenu": [
             {
               "label": "Evaluate Expression",
-              "command": "calc-inline:evaluate"
+              "command": "calc-inline:evaluate",
+              "group": "transform",
+              "order": 20
             }
           ]
         }
