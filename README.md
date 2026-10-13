@@ -15,6 +15,10 @@ Work through calculations directly in a text editor without switching to a separ
 - **Math shortcuts**: call functions such as `pow` and `max` without a `Math.` prefix.
 - **Selection numbering**: replace each selection with its zero-based or configured index.
 
+![Expressions before evaluation.](.github/demo.png)
+
+![Calculated results appended by Calc Inline.](.github/demo-2.png)
+
 ## Installation
 
 To install `calc-inline` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/calc-inline`.

@@ -1,0 +1,22 @@
+{
+  "title": "calc-inline",
+  "description": "Evaluate expressions and append their calculated results.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "2ca4836f5b09a5103fb063d07a243f2a91f3b69b",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "Expressions before evaluation.",
+      "width": 1100,
+      "height": 340
+    },
+    {
+      "file": "demo-2.png",
+      "label": "Calculated results appended by Calc Inline.",
+      "width": 1100,
+      "height": 340
+    }
+  ]
+}
