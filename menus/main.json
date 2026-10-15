@@ -7,15 +7,15 @@
           "label": "Calc Inline",
           "submenu": [
             {
-              "label": "Evaluate",
+              "label": "Append Expression Results",
               "command": "calc-inline:evaluate"
             },
             {
-              "label": "Replace",
+              "label": "Replace Expressions with Results",
               "command": "calc-inline:replace"
             },
             {
-              "label": "Count",
+              "label": "Number Selections",
               "command": "calc-inline:count"
             }
           ]
@@ -29,7 +29,7 @@
           "label": "Text",
           "submenu": [
             {
-              "label": "Evaluate Expression",
+              "label": "Append Expression Results",
               "command": "calc-inline:evaluate",
               "group": "transform",
               "order": 20
