@@ -72,11 +72,32 @@ describe("Calc Inline command contracts", () => {
     expect(editor.getText()).toBe("4\n9");
   });
 
-  it("dispatches application menu actions from the workspace", () => {
+  it("requires saved editor focus for application menu actions", () => {
     editor.setText("max(13, 17)");
     editor.selectAll();
     command("replace", lumine.views.getView(lumine.workspace));
+    expect(editor.getText()).toBe("max(13, 17)");
+    expect(
+      lumine.commands.canDispatch(
+        lumine.workspace.getElement(),
+        "calc-inline:replace",
+      ),
+    ).toBe(false);
+    command("replace", surface);
     expect(editor.getText()).toBe("17");
+  });
+
+  it("does not offer editing commands in mini or read-only editors", () => {
+    const mini = lumine.workspace.buildTextEditor({ mini: true });
+    lumine.workspace.getElement().appendChild(mini.getElement());
+    expect(
+      lumine.commands.canDispatch(mini.getElement(), "calc-inline:replace"),
+    ).toBe(false);
+    mini.destroy();
+    editor.setReadOnly(true);
+    expect(lumine.commands.canDispatch(surface, "calc-inline:replace")).toBe(
+      false,
+    );
   });
 
   it("uses the editor that received the command rather than an unrelated active editor", async () => {
