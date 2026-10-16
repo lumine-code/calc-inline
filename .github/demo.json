@@ -1,9 +1,9 @@
 {
   "title": "calc-inline",
   "description": "Expressions before evaluation.",
-  "recordedOn": "2026-10-14",
-  "sourceRevision": "14e97845f78f3cf2467a3bb944ed20fc82c7d409",
-  "themeSourceRevision": "7fbd047a87ecf1367c896b19ff270cdc28d319f7",
+  "recordedOn": "2026-10-16",
+  "sourceRevision": "e41ac7e250ac4dfa30f6c8fac002d6e924b2b86f",
+  "themeSourceRevision": "828c35ac1816466699effa6f7cf7eedccc930ff9",
   "mode": "normal",
   "fontSettings": "default",
   "scenario": "demo.js",
@@ -11,8 +11,8 @@
   "environment": {
     "platform": "win32",
     "arch": "x64",
-    "electron": "44.7.0",
-    "chrome": "152.0.7977.130",
+    "electron": "44.7.1",
+    "chrome": "152.0.7977.149",
     "devicePixelRatio": 1,
     "locale": "en-GB",
     "fontFamily": "Fira Code, Menlo, DejaVu Sans Mono, Consolas, monospace",
@@ -21,24 +21,25 @@
   },
   "viewport": { "width": 1100, "height": 340 },
   "cornerRadius": 10,
+  "privacy": { "version": 1, "location": "neutral", "textChecked": true },
   "sources": {
     "editor": {
-      "revision": "8be8f86075ad93df038610d82b3ac6d99329957d",
+      "revision": "f8d8badf72a1a2e010c2c5d76306bade6c5fefd0",
       "dirty": false,
       "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     },
     "package": {
-      "revision": "14e97845f78f3cf2467a3bb944ed20fc82c7d409",
+      "revision": "e41ac7e250ac4dfa30f6c8fac002d6e924b2b86f",
       "dirty": false,
       "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     },
     "calc-inline": {
-      "revision": "14e97845f78f3cf2467a3bb944ed20fc82c7d409",
+      "revision": "e41ac7e250ac4dfa30f6c8fac002d6e924b2b86f",
       "dirty": false,
       "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     },
     "one-theme": {
-      "revision": "7fbd047a87ecf1367c896b19ff270cdc28d319f7",
+      "revision": "828c35ac1816466699effa6f7cf7eedccc930ff9",
       "dirty": false,
       "workingTreeHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     }
@@ -55,14 +56,14 @@
       "label": "Expressions before evaluation.",
       "width": 1100,
       "height": 340,
-      "sha256": "ac4cdf4c29ad06ff226053c7e9b14aae546a181a9ae4aeee9df7bc9dde94985c"
+      "sha256": "c4c69f4e246c611cd9e779ced1c09dea4a5e70bc54c16c1a202624b9cfd474d4"
     },
     {
       "file": "demo-2.png",
       "label": "Calculated results appended by Calc Inline.",
       "width": 1100,
       "height": 340,
-      "sha256": "2b91fb249e144a9a13a7b8877472678a1d5bed9fa7a82b98ef77794256cee74f"
+      "sha256": "6ce876e38e7468fd2bbdae8e8f3d2ad7818cf095cead2ad8d57e5501eb84241f"
     }
   ]
 }
