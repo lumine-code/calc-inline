@@ -25,7 +25,7 @@ To install `calc-inline` search for it in the Install pane of the Lumine setting
 
 ## Commands
 
-Commands available in `lumine-workspace`:
+Commands available in `lumine-text-editor:not([mini]):not([readonly])`:
 
 - `calc-inline:evaluate`: append each selected expression's result,
 - `calc-inline:replace`: replace each selected expression with its result,
