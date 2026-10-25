@@ -33,6 +33,8 @@ Commands available in `lumine-text-editor:not([mini]):not([readonly])`:
 
 ## Usage
 
+Calculations are disabled when the editor's grammar is **None**, so an empty selection cannot trigger evaluation of a large document. Select a grammar to enable the commands again.
+
 With no selection, evaluation can process the document one line at a time. Blank lines and lines beginning with `//` are skipped.
 
 When extended variables are enabled, `i` is the current selection index, `_` is the previous result, and `_1`, `_2`, and later names retain results from the current run. `Math.pwd(length)` and its `Math.password` alias generate a random printable string; the default length is 20.

@@ -1,4 +1,8 @@
 describe("Calc command timeout boundary snapshots", () => {
+  beforeEach(async () => {
+    await lumine.packages.activatePackage("language-text");
+  });
+
   let editor;
   beforeEach(async () => {
     jasmine.attachToDOM(lumine.workspace.getElement());

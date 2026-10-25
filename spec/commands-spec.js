@@ -1,6 +1,10 @@
 "use strict";
 
 describe("Calc Inline command contracts", () => {
+  beforeEach(async () => {
+    await lumine.packages.activatePackage("language-text");
+  });
+
   let editor;
   let surface;
 
