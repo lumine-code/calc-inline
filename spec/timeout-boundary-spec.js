@@ -14,11 +14,11 @@ describe("Calc command timeout boundary snapshots", () => {
     "throw new Proxy({}, {get(){while(true){}}})",
     "Promise.resolve().then(()=>{while(true){}})",
   ]) {
-    it(`reports a bounded error without editing the source for ${source}`, () => {
+    it(`reports a bounded error without editing the source for ${source}`, async () => {
       editor.setText(source);
       editor.selectAll();
       const error = spyOn(lumine.notifications, "addError").and.callThrough();
-      lumine.commands.dispatch(
+      await lumine.commands.dispatch(
         lumine.views.getView(editor),
         "calc-inline:replace",
       );

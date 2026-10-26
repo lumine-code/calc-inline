@@ -33,9 +33,13 @@ Commands available in `lumine-text-editor:not([mini]):not([readonly])`:
 
 ## Usage
 
-Calculations are disabled when the editor's grammar is **None**, so an empty selection cannot trigger evaluation of a large document. Select a grammar to enable the commands again.
+Calculations are disabled when the editor's grammar is **None**. Select a grammar to enable the commands again.
 
 With no selection, evaluation can process the document one line at a time. Blank lines and lines beginning with `//` are skipped.
+
+Numbering reads immutable range metadata without extracting the selected text. Evaluation and replacement prepare edits in cancellable batches and publish them as one undo operation; editing, moving the selection, changing grammar, starting another calculation or deactivating the package cancels obsolete preparation. Whole-document mode retains CR, LF and CRLF separators and never joins the document into one string.
+
+Each JavaScript expression and its formatted result is limited to 65,536 UTF-16 code units at the VM boundary. Extended variables retain at most 10,000 results per run; disable that option to evaluate more expressions without retaining their numbered values. A budget failure leaves the document unchanged. Ordinary expression errors leave those expressions unchanged and allow later inputs to run; at most 20 individual error notifications are shown, followed by a count of any others.
 
 When extended variables are enabled, `i` is the current selection index, `_` is the previous result, and `_1`, `_2`, and later names retain results from the current run. `Math.pwd(length)` and its `Math.password` alias generate a random printable string; the default length is 20.
 

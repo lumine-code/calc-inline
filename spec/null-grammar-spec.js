@@ -16,7 +16,7 @@ describe("Calc Inline with no grammar", () => {
     lumine.config.unset("calc-inline.evaluateAllOnEmptySelection");
   });
 
-  it("does not read or evaluate the whole document and becomes available on resume", () => {
+  it("does not read or evaluate the whole document and becomes available on resume", async () => {
     const grammar = lumine.grammars.grammarForScopeName("text.plain");
     editor.setGrammar(lumine.grammars.nullGrammar);
     spyOn(editor, "getText").and.callThrough();
@@ -27,11 +27,14 @@ describe("Calc Inline with no grammar", () => {
           `calc-inline:${action}`,
         ),
       ).toBe(false);
-      lumine.commands.dispatch(editor.getElement(), `calc-inline:${action}`);
+      await lumine.commands.dispatch(
+        editor.getElement(),
+        `calc-inline:${action}`,
+      );
     }
     expect(editor.getText).not.toHaveBeenCalled();
     editor.setGrammar(grammar);
-    lumine.commands.dispatch(editor.getElement(), "calc-inline:evaluate");
+    await lumine.commands.dispatch(editor.getElement(), "calc-inline:evaluate");
     expect(editor.getText()).toBe("1 + 2 = 3\n3 + 4 = 7");
   });
 });

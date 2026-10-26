@@ -29,21 +29,21 @@ describe("Calc Inline command contracts", () => {
   });
 
   function command(action, target = surface) {
-    lumine.commands.dispatch(target, `calc-inline:${action}`);
+    return lumine.commands.dispatch(target, `calc-inline:${action}`);
   }
 
-  it("calculates line batches as one undo operation and preserves the cursor", () => {
+  it("calculates line batches as one undo operation and preserves the cursor", async () => {
     const original = "7 * 9\n// note\n\n_1 + 4";
     editor.setText(original);
     editor.setCursorBufferPosition([3, 2]);
-    command("evaluate");
+    await command("evaluate");
     expect(editor.getText()).toBe("7 * 9 = 63\n// note\n\n_1 + 4 = 67");
     expect(editor.getCursorBufferPosition()).toEqual([3, 2]);
     editor.undo();
     expect(editor.getText()).toBe(original);
   });
 
-  it("replaces selected ranges without touching surrounding text", () => {
+  it("replaces selected ranges without touching surrounding text", async () => {
     editor.setText("left 9 * 8 right\nnext 4 + 5 end");
     editor.setSelectedBufferRanges([
       [
@@ -55,11 +55,11 @@ describe("Calc Inline command contracts", () => {
         [1, 10],
       ],
     ]);
-    command("replace");
+    await command("replace");
     expect(editor.getText()).toBe("left 72 right\nnext 9 end");
   });
 
-  it("orders selection variables by document position", () => {
+  it("orders selection variables by document position", async () => {
     lumine.config.set("calc-inline.countStartIndex", 4);
     editor.setText("i\n_1 + i");
     editor.setSelectedBufferRanges([
@@ -72,14 +72,14 @@ describe("Calc Inline command contracts", () => {
         [0, 1],
       ],
     ]);
-    command("replace");
+    await command("replace");
     expect(editor.getText()).toBe("4\n9");
   });
 
-  it("requires saved editor focus for application menu actions", () => {
+  it("requires saved editor focus for application menu actions", async () => {
     editor.setText("max(13, 17)");
     editor.selectAll();
-    command("replace", lumine.views.getView(lumine.workspace));
+    await command("replace", lumine.views.getView(lumine.workspace));
     expect(editor.getText()).toBe("max(13, 17)");
     expect(
       lumine.commands.canDispatch(
@@ -87,11 +87,11 @@ describe("Calc Inline command contracts", () => {
         "calc-inline:replace",
       ),
     ).toBe(false);
-    command("replace", surface);
+    await command("replace", surface);
     expect(editor.getText()).toBe("17");
   });
 
-  it("does not offer editing commands in mini or read-only editors", () => {
+  it("does not offer editing commands in mini or read-only editors", async () => {
     const mini = lumine.workspace.buildTextEditor({ mini: true });
     lumine.workspace.getElement().appendChild(mini.getElement());
     expect(
@@ -109,28 +109,28 @@ describe("Calc Inline command contracts", () => {
     editor.selectAll();
     const other = await lumine.workspace.open();
     other.setText("untouched");
-    command("replace", surface);
+    await command("replace", surface);
     expect(editor.getText()).toBe("42");
     expect(other.getText()).toBe("untouched");
   });
 
-  it("numbers empty document rows and keeps the trailing newline", () => {
+  it("numbers empty document rows and keeps the trailing newline", async () => {
     lumine.config.set("calc-inline.countStartIndex", 12);
     editor.setText("\n\n");
-    command("count");
+    await command("count");
     expect(editor.getText()).toBe("12\n13\n");
   });
 
-  it("honours disabled whole-document mode", () => {
+  it("honours disabled whole-document mode", async () => {
     lumine.config.set("calc-inline.evaluateAllOnEmptySelection", false);
     editor.setText("4 * 4\n5 * 5");
-    command("replace");
+    await command("replace");
     expect(editor.getText()).toBe("4 * 4\n5 * 5");
   });
 
-  it("keeps unsuccessful expressions and computes later valid input", () => {
+  it("keeps unsuccessful expressions and computes later valid input", async () => {
     editor.setText("missingValue\n16 / 4\nnull\nfalse");
-    command("replace");
+    await command("replace");
     expect(editor.getText()).toBe("missingValue\n4\nnull\nfalse");
     const errors = lumine.notifications
       .getNotifications()
@@ -139,7 +139,7 @@ describe("Calc Inline command contracts", () => {
     expect(errors[0].getDetail()).toContain("ReferenceError");
   });
 
-  it("interrupts slow evaluation and slow result formatting", () => {
+  it("interrupts slow evaluation and slow result formatting", async () => {
     lumine.config.set("calc-inline.evaluationTimeout", 15);
     for (const source of [
       "while (true) {}",
@@ -147,7 +147,7 @@ describe("Calc Inline command contracts", () => {
     ]) {
       editor.setText(source);
       editor.selectAll();
-      command("replace");
+      await command("replace");
       expect(editor.getText()).toBe(source);
     }
     expect(
@@ -160,12 +160,12 @@ describe("Calc Inline command contracts", () => {
   it("creates fresh execution state after reactivation", async () => {
     editor.setText("globalThis.remembered = 81");
     editor.selectAll();
-    command("replace");
+    await command("replace");
     await lumine.packages.deactivatePackage("calc-inline");
     await lumine.packages.activatePackage("calc-inline");
     editor.setText("typeof remembered");
     editor.selectAll();
-    command("replace");
+    await command("replace");
     expect(editor.getText()).toBe("undefined");
   });
 });
